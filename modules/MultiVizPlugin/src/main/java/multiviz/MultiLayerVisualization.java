@@ -7,7 +7,7 @@ import algorithms.basic.RandomLayout;
 import algorithms.force.ForceAtlas2Layout;
 import algorithms.force.ForceAtlasLayout;
 import algorithms.force.FruchtermanReingoldLayout;
-import helpers.ColumnDropDownBox;
+import helpers.CustomComboBoxEditor;
 import helpers.LayoutDropDowns;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,6 @@ import org.gephi.graph.api.GraphModel;
 import org.gephi.graph.api.Interval;
 import org.gephi.graph.api.Node;
 import org.gephi.graph.api.Table;
-import org.gephi.layout.plugin.AbstractLayout;
 import org.gephi.layout.spi.Layout;
 import org.gephi.layout.spi.LayoutBuilder;
 import org.gephi.layout.spi.LayoutProperty;
@@ -72,11 +71,11 @@ public class MultiLayerVisualization implements Layout {
         this.graphModel = graphModel;
         graph = this.graphModel.getGraphVisible();
         selectableColumns = new ArrayList<>();
-        for (int i = 0; i < this.graphModel.getNodeTable().countColumns(); i++) {
-            selectableColumns.add("Node " + this.graphModel.getNodeTable().getColumn(i).getTitle());
+        for (int i = 0; i < graphModel.getNodeTable().countColumns(); i++) {
+            selectableColumns.add("Node " + graphModel.getNodeTable().getColumn(i).getTitle());
         }
-        for (int i = 0; i < this.graphModel.getEdgeTable().countColumns(); i++) {
-            selectableColumns.add("Edge " + this.graphModel.getEdgeTable().getColumn(i).getTitle());
+        for (int i = 0; i < graphModel.getEdgeTable().countColumns(); i++) {
+            selectableColumns.add("Edge " + graphModel.getEdgeTable().getColumn(i).getTitle());
         }
     }
 
@@ -277,7 +276,7 @@ public class MultiLayerVisualization implements Layout {
             properties.add(LayoutProperty.createProperty(this, Boolean.class, "Set as 3D", BASIC, "Set nodes in 3 Dimension", "is3DLayout", "set3DLayout"));
             properties.add(LayoutProperty.createProperty(this, Boolean.class, "Sort Layers", BASIC, "If selected, layers will sorted (layers with the least number of nodes will be placed at bottom/left)", "isSorted", "setSorted"));
             properties.add(LayoutProperty.createProperty(this, Integer.class, "Layer Distance", BASIC, "Distance between two layers", "getLayerDistance", "setLayerDistance"));
-            properties.add(LayoutProperty.createProperty(this, String.class, "Select Layer", BASIC, "Select the feature which is to be considered as a layer", "getSelectedColumn", "setSelectedColumn", ColumnDropDownBox.class));
+            properties.add(LayoutProperty.createProperty(this, String.class, "Select Layer", BASIC, "Select the feature which is to be considered as a layer", "getSelectedColumn", "setSelectedColumn", CustomComboBoxEditor.class));
             properties.add(LayoutProperty.createProperty(this, String.class, "Layout Algorithm", BASIC, "Select the layout algorithm which is to be applied to a layer", "getLayoutAlgorithm", "setLayoutAlgorithm", LayoutDropDowns.class));
         } catch(NoSuchMethodException e) {
             e.printStackTrace();
